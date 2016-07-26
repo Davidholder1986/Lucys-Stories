@@ -94,7 +94,7 @@ a:active, a:hover, a:focus {
 }
 
 .story-meta {
-	dispay: inline;
+	display: inline;
 	margin-right: 15px;
 }
 
@@ -129,8 +129,21 @@ a:active, a:hover, a:focus {
 	border-bottom: 1px solid #b6b6b6;
 	border-radius: 4px;
 	box-sizing: border-box;
-	font-size: 20px;
-	padding: 10px;
+	font-size: 14px;
+	padding: 5px;
+	margin-bottom: 10px;
+	width: 100%; 
+	overflow-y: auto;
+	height: 100px;
+}
+
+.form-title {
+	border-bottom: 1px solid #b6b6b6;
+	border-radius: 4px;
+	box-sizing: border-box;
+	margin-bottom:15px; 
+	padding: 5px;
+	font-size: 18px;
 	width: 100%; 
 }
 
@@ -224,7 +237,7 @@ a:active, a:hover, a:focus {
 ***************************************************************************************/
 
 @keyframes chat-growth {
-    from {width: 0;}
+    from {width: 240px;}
     to {width: 360px;}
 }
 
@@ -232,6 +245,7 @@ a:active, a:hover, a:focus {
 	position: relative;
 	width: 100px;
 	float: right;
+	z-index: 90;
 }
 
 .lucy-chat-button {
@@ -241,11 +255,14 @@ a:active, a:hover, a:focus {
 	margin: 5px;
 	position: fixed;
 	border-radius: 5px;
+	width: 65px;
+	z-index: 85;
 }
 
 .lucy-chat-button:hover {
 	font-size: 18px;
 	transition: 0.1s ease-in-out;
+	width: 80px;
 }
 
 .chat-modal {
@@ -257,6 +274,8 @@ a:active, a:hover, a:focus {
   position: absolute;
   visibility: hidden;
   background-color: #3f51b5;
+  display: block;
+  z-index: 80;
 }
 
 .chat-window {
@@ -264,6 +283,7 @@ a:active, a:hover, a:focus {
 	width: 360px;
 	height: 200px;
 	overflow-y: auto;
+	z-index: 75;
 }
 
 .chat-inner-window {
@@ -281,14 +301,66 @@ a:active, a:hover, a:focus {
   animation-duration: 1s;
 }
 
+#chat-input {
+	width: 90%;
+}
+
+.hidden {
+	visibility: hidden;
+}
+
 .form-text {
 	color: #000;
 }
 
 .big-font {
 	font-size: 18px;
+	width: 80px;
 }
 
 .small-font {
 	font-size: 14px;
+	width: 65px;
+}
+
+/*********************************************************************************
+*		Sign In CSS
+*********************************************************************************/
+
+.signIn-wrapper {
+	position: relative;
+	width: 100px;
+	float: right;
+}
+
+.js-SignIn {
+	width:360px;
+}
+
+.signInMargin {
+	margin: 10px;
+}
+
+.inFrontOf {
+	z-index: 10;
+}
+
+#signDiv-username {
+  width: 90%;
+}
+
+#signDiv-password {
+  width: 90%;
+}
+
+#signDiv-signIn {
+	margin-top: 10px;
+}
+
+#signDiv-signUp {
+	margin-top: 10px;
+}
+
+.sign-in-button-wrap {
+	text-align: center;
 }

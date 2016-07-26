@@ -13,7 +13,29 @@
 		<div class='container'>
 			<p class='logo'>Blog Stories</p>
 		</div>
+		<p class='container' id='welcome'>Welcome Guest, please log in to your account or sign up if you dont have one</p>
 	</header>
+
+	<!--Sign In -->
+	<div class='signIn-wrapper inFrontOf' id="signDiv">
+		<div class='lucy-chat-button small-font'>
+			<div class='chat' >Sign In</div>
+			<div class='chat-modal js-SignIn'>
+				<div class='signInMargin'>
+					Username: <input class='form-text' id="signDiv-username" type="text"></input><br>
+	                Password: <input class='form-text' id="signDiv-password" type="password"></input>
+	                <div class='sign-in-button-wrap'>
+	                	<button class='form-text' id="signDiv-signIn" style='width: 100px;'>Sign In</button>
+	                	<button class='form-text' id="signDiv-signUp" style='width: 100px;'>Sign Up</button>
+	                </div>
+	            </div>
+			</div>
+		</div>
+	</div>
+	<!--  End of Sign in -->
+	
+	<br>
+	<br>
 
 	<!--Chat app -->
 	<div class='chat-wrapper'>
@@ -24,7 +46,7 @@
 					<div class='chat-inner-window'>Type here</div>
 				</div>
 				<form class='form-text' id="chat-form">
-					<input id="chat-input" type='text' style='width: 330px;' />
+					<input id="chat-input" type='text' />
 				</form>
 			</div>
 		</div>
@@ -35,10 +57,13 @@
 		<div class='container'>
 			<header class='subheader'>
 				<h1>Latest Story</h1>
-				<p>Add a new story! <a class='js-add-link' href='#'>Add a link now!</a></p>
+				<p>Add a new story! <a class='js-add-link' href='#'>Add a story now!</a></p>
 				<form class='form js-form'>
 				<label class='form-label' for='form-link-input' />
-					<input class='form-input' type='text' id='form-link-input' />
+					<p>Title</p>
+					<input class='form-title' type='title' id='form-story-title' />
+					<textarea class='form-input' type='text' id='form-link-content'>Type or copy your story here</textarea>
+					<button id='submitStory'>Submit</button>
 				</form>
 			</header>
 
