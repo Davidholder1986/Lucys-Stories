@@ -35,6 +35,9 @@ var signDivUsername = document.getElementById('signDiv-username');
 var signDivSignIn = document.getElementById('signDiv-signIn');
 var signDivSignUp = document.getElementById('signDiv-signUp');
 var signDivPassword = document.getElementById('signDiv-password');
+var signDivName = document.getElementById('signDiv-name');
+var signDivEmail = document.getElementById('signDiv-email');
+var signDivDob = document.getElementById('signDiv-dob');
 
 signDivSignIn.onclick = function(){
 	username = signDivUsername.value;
@@ -43,7 +46,15 @@ signDivSignIn.onclick = function(){
     signDivPassword.value = '';
 }
 signDivSignUp.onclick = function(){
-    socket.emit('signUp',{username:signDivUsername.value,password:signDivPassword.value});
+	if ($('#extra-signup').hasClass('sign-up-extra-view')){
+		$('#extra-signup').removeClass('sign-up-extra-view');
+		$('.lucy-chat-button').removeClass('fixed');
+	} else {
+		socket.emit('signUp',{username:signDivUsername.value,password:signDivPassword.value, name: signDivName.value, email: signDivEmail.value, dob: signDivDob.value});
+		$('#extra-signup').addClass('sign-up-extra-view');
+		$('.lucy-chat-button').addClass('fixed');
+	}
+    
 }
 socket.on('signInResponse',function(data){
 	var welcome = document.getElementById('welcome'); 
@@ -66,14 +77,97 @@ var content = document.getElementById('form-link-content');
 var submitStory = document.getElementById('submitStory');
 
 submitStory.onclick = function() {
-	if (username != 'Guest') {
-		socket.emit('storyUpload', {username: username, title: title.value, content: content.value, comments: '', likes: 0});
+	if (username === 'Guest') {
+		alert('You need to be logged in to upload a story! Please sign up, its quick, easy and free!');
+	} else if (title.value.length < 1) {
+		alert('You need to type a title!');
+	} else if (content.value.length < 1) {
+		alert('You need to type out your story!');
+	} else {
+		socket.emit('storyUpload', {username: username, title: title.value, content: content.value, comments: '', commentnumber: 0, likes: 0});
 		title.value = '';
 		content.value = '';
-	} else {
-		alert('You need to be logged in to upload a story! Please sign up, its quick, easy and free!');
 	}
 }
+
+// story request and exit
+
+$(document).on("click",".story-back",function(event) {
+		event.preventDefault();
+		socket.emit('refreshStories', {refresh: 'yes'});
+	});
+
+$(document).on("click",".story-link",function(event) {
+		event.preventDefault();
+		var title = $(this).html();
+		var data = {id: title};
+		socket.emit('storyRequest', data);
+	});
+
+// Refresh Stories
+
+$(document).on("click","#story-refresh",function(event) {
+		event.preventDefault();
+		socket.emit('refreshStories', {refresh: 'yes'});
+	});
+
+
+// adds stories to website
+socket.on('topSixStories', function(data) {
+	// data = tite, username,  commentnumber, likes
+
+	var fullStoryList = '';
+
+	for (var i = 0; i < data.length; i++) {
+		var story = "<li class='story-item'>" +
+				"<a class='story-link' href='#'>" + data[i].title + "</a>" +
+				"<ul class='story-meta'>" +
+					"<li class='story-meta-item'>" +
+						"<em>Posted by:</em>" +
+						"<a class='daniel' href='#'>" + data[i].username + "</a>" +
+					"</li>" +
+					"<li class='story-meta-item'>" +
+						"<a href='#'>" + data[i].commentnumber + " comments</a>" +
+					"</li>" +
+					"<li class='story-meta-item'>" +
+						"<a class='js-like' href='#'>like this story</a>" +
+					"</li>" +
+					"<li class='story-meta-item'>" +
+						"<a class='js-like-counter' href='#'>" + data[i].likes + " likes</a>" +
+					"</li>" +
+				"</ul>" +
+			"</li>"
+		
+		fullStoryList += story;	
+	}
+	$('#latest-story-list').html(fullStoryList);
+	fullStoryList = '';
+
+	});
+
+//  Displays Stories
+
+socket.on('storyRequested', function(story){
+	var requestedstory = "<div class='story-modal js-story'>\
+					<div class='modal-content'>\
+					<h3 id='storyTitle'>" + story.title + "</h3>\
+					<a class='story-back' href='#'>Back to Stories</a>\
+					<p id='storyContent'>" + story.content + "</p>\
+					<ol class='story'>\
+						<li class='story-item'>\
+							<a class='story-link' href='#'>My Stories</a>\
+						</li>\
+						<li class='story-item'>\
+							<a class='story-link' href='#'>Leave a message</a>\
+						</li>\
+					</ol>\
+				</div>\
+			</div>\
+			<div class='modal-overlay js-modal-overlay'>\
+			</div>"
+	$('#latest-story-list').html(requestedstory);
+});
+
 
 // Website Jquery
 function authorShow(author, jsauthor) {
@@ -88,14 +182,17 @@ function authorShow(author, jsauthor) {
 	});
 }
 
+// the like function
+$(document).on("click",".js-like",function(event) {
+	event.preventDefault();
+	$(this).text('Liked')
+	.closest('.story-item')
+	.addClass('is-liked');
+});
+
 
 $(document).ready(function() {
-	$('.js-like').on('click', function(event) {
-		event.preventDefault();
-		$(this).text('Liked')
-		.closest('.story-item')
-		.addClass('is-liked');
-	});
+
 
 	// Add link
 	$('.js-add-link').on('click', function(event) {
@@ -127,10 +224,11 @@ $(document).ready(function() {
 		$('.lucy-chat-button').toggleClass('small-font');
 	});
 
-	
-
 	// Modal
 	authorShow('.david', '.js-david');
 	authorShow('.daniel', '.js-daniel');
 	authorShow('.lucy', '.js-lucy');
+
+	// Story Visible
+
 });
