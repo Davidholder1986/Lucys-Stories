@@ -116,7 +116,7 @@ submitStory.onclick = function() {
 	} else if (content.value.length < 1) {
 		alert('You need to type out your story!');
 	} else {
-		socket.emit('storyUpload', {username: getCookie('username'), title: title.value, content: content.value, comments: [], commentnumber: 0, likes: []});
+		socket.emit('storyUpload', {username: getCookie('username'), title: title.value, content: content.value, comments: [], commentnumber: 0, likes: ['test']});
 		title.value = '';
 		content.value = '';
 		$('.js-form').toggleClass('is-visible');
@@ -227,21 +227,30 @@ socket.on('topSixStories', function(data) {
 	var fullStoryList = '';
 
 	for (var i = 0; i < data.length; i++) {
+
+		var likes = "like this story"
+
+		for (var j = 0; j < data[i].likes.length; j++) {
+			if (getCookie('username') === data[i].likes[j]) {
+				likes = "Liked";
+			}
+		}
+
 		var story = "<li class='story-item'>" +
 				"<a class='story-link' href='#'>" + data[i].title + "</a>" +
 				"<ul class='story-meta'>" +
 					"<li class='story-meta-item'>" +
-						"<em>Posted by:</em>" +
+						"<em>Posted by: </em>" +
 						"<a class='daniel' href='#'>" + data[i].username + "</a>" +
 					"</li>" +
 					"<li class='story-meta-item'>" +
 						"<a href='#' class='commentlink'>" + data[i].commentnumber + " comments</a>" +
 					"</li>" +
 					"<li class='story-meta-item'>" +
-						"<a class='js-like' href='#'>like this story</a>" +
+						"<a class='js-like' href='#'>" + likes + "</a>" +
 					"</li>" +
 					"<li class='story-meta-item'>" +
-						"<a class='js-like-counter' href='#'>" + data[i].likes.length + " likes</a>" +
+						"<a class='js-like-counter' href='#'>" + (data[i].likes.length - 1) + " likes" + "</a>" +
 					"</li>" +
 				"</ul>" +
 			"</li>"
@@ -295,6 +304,8 @@ $(document).on("click",".js-like",function(event) {
 	event.preventDefault();
 	if (getCookie('username') === 'Guest') {
 		alert('You need to be logged in to like a story!')
+	} else if ($(this).text() === 'Liked') {
+		alert('You have already liked this story');
 	} else {
 		$(this).text('Liked')
 		.closest('.story-item')

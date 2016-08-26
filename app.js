@@ -25,12 +25,12 @@ var USERS = {
 var advancedUSERDATA = [];
 
 //{username: username, title: title.value, content: content.value, comments: '', commentnumber: 0, likes: 0}
-var STORIES = [{username: 'username', title: 'Story Six', content: 'content.value', comments: [{username: 'david', comment: 'this is great!'}, {username: 'daniel', comment: 'I am gay!'}], commentnumber: 2, likes: []},
-               {username: 'username', title: 'Story Five', content: 'content.value', comments: [], commentnumber: 0, likes: []},
-               {username: 'username', title: 'Story Four', content: 'content.value', comments: [], commentnumber: 0, likes: []},
-               {username: 'username', title: 'Story Three', content: 'content.value', comments: [], commentnumber: 0, likes: []},
-               {username: 'username', title: 'Story Two', content: 'content.value', comments: [], commentnumber: 0, likes: []},
-               {username: 'username', title: 'Story One', content: 'content.value', comments: [], commentnumber: 0, likes: []}];
+var STORIES = [{username: 'username', title: 'Story Six', content: 'content.value', comments: [{username: 'david', comment: 'this is great!'}, {username: 'daniel', comment: 'I am gay!'}], commentnumber: 2, likes: ['test']},
+               {username: 'username', title: 'Story Five', content: 'content.value', comments: [], commentnumber: 0, likes: ['test']},
+               {username: 'username', title: 'Story Four', content: 'content.value', comments: [], commentnumber: 0, likes: ['test']},
+               {username: 'username', title: 'Story Three', content: 'content.value', comments: [], commentnumber: 0, likes: ['test']},
+               {username: 'username', title: 'Story Two', content: 'content.value', comments: [], commentnumber: 0, likes: ['test']},
+               {username: 'username', title: 'Story One', content: 'content.value', comments: [], commentnumber: 0, likes: ['test']}];
 
 var isValidPassword = function(data) {
 	return USERS[data.username] === data.password;
@@ -142,21 +142,26 @@ io.sockets.on('connection', function(socket){
         }
     });
 
-    //  Updates Like  of astory to user
+    //  Updates Like  of a story to user (has failsafe to check has not already been liked)
 
     socket.on('userLiked', function(data){
         for(var i = 0; i < STORIES.length; i++) {
             if (STORIES[i].title === data.title) {
-                for (var j = 0; j < STORIES[i].length; j++){
+                for (var j = 0; j < STORIES[i].likes.length; j++){
                     if (STORIES[i].likes[j] === data.username) {
                         socket.emit('likedResult', {success: false});
-                    } else {
-                        STORIES[i].likes.push(data.username);
-                        socket.emit('likedResult', {success: true});
-                    }
-                }                
+                        // stops the function
+                        return '';
+                    } 
+                }
+                // runs if username is not found
+                STORIES[i].likes.push(data.username);
+                console.log(STORIES[i].likes);
+                socket.emit('likedResult', {success: true});                
             }
         }
+
+
     });
 
     // Updates website with six latest stories at predefined duration
@@ -168,10 +173,5 @@ io.sockets.on('connection', function(socket){
         console.log('User ' + socket.id + ' disconnected');
         delete SOCKET_LIST[socket.id];
     }); 
-<<<<<<< HEAD
-});
 
-// test update
-=======
 });
->>>>>>> 66681a0bdc20caa5b9a61541d5b7ad51657c4c52
