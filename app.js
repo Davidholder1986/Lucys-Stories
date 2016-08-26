@@ -168,6 +168,10 @@ io.sockets.on('connection', function(socket){
         console.log('User ' + socket.id + ' disconnected');
         delete SOCKET_LIST[socket.id];
     }); 
+<<<<<<< HEAD
 });
 
 // test update
+=======
+});
+>>>>>>> 66681a0bdc20caa5b9a61541d5b7ad51657c4c52
