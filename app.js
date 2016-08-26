@@ -22,13 +22,15 @@ var USERS = {
 	'd': 'd'
 }
 
+var advancedUSERDATA = [];
+
 //{username: username, title: title.value, content: content.value, comments: '', commentnumber: 0, likes: 0}
-var STORIES = [{username: 'username', title: 'Story Six', content: 'content.value', comments: '', commentnumber: 0, likes: 0},
-               {username: 'username', title: 'Story Five', content: 'content.value', comments: '', commentnumber: 0, likes: 0},
-               {username: 'username', title: 'Story Four', content: 'content.value', comments: '', commentnumber: 0, likes: 0},
-               {username: 'username', title: 'Story Three', content: 'content.value', comments: '', commentnumber: 0, likes: 0},
-               {username: 'username', title: 'Story Two', content: 'content.value', comments: '', commentnumber: 0, likes: 0},
-               {username: 'username', title: 'Story One', content: 'content.value', comments: '', commentnumber: 0, likes: 0}];
+var STORIES = [{username: 'username', title: 'Story Six', content: 'content.value', comments: [{username: 'david', comment: 'this is great!'}, {username: 'daniel', comment: 'I am gay!'}], commentnumber: 2, likes: []},
+               {username: 'username', title: 'Story Five', content: 'content.value', comments: [], commentnumber: 0, likes: []},
+               {username: 'username', title: 'Story Four', content: 'content.value', comments: [], commentnumber: 0, likes: []},
+               {username: 'username', title: 'Story Three', content: 'content.value', comments: [], commentnumber: 0, likes: []},
+               {username: 'username', title: 'Story Two', content: 'content.value', comments: [], commentnumber: 0, likes: []},
+               {username: 'username', title: 'Story One', content: 'content.value', comments: [], commentnumber: 0, likes: []}];
 
 var isValidPassword = function(data) {
 	return USERS[data.username] === data.password;
@@ -53,7 +55,7 @@ var updateStories = function() {
     var sliceArray = STORIES.slice(-6);
     var reverseSliceArray = sliceArray.reverse();
 	return reverseSliceArray;
-}
+};
 
 var requestedStory = function(story) {
     for (var i = 0; i<STORIES.length; i++) {
@@ -61,7 +63,7 @@ var requestedStory = function(story) {
             return STORIES[i];
         }
     }
-}
+};
 
 var io = require('socket.io')(serv,{});
 io.sockets.on('connection', function(socket){
@@ -73,7 +75,7 @@ io.sockets.on('connection', function(socket){
     socket.on('signIn', function(data) {
     	if (isValidPassword(data)) {
     		addActiveAccount(socket.id, data.username);
-    		socket.emit('signInResponse', {success:true});
+    		socket.emit('signInResponse', {success:true, username:data.username});
     	} else {
     		socket.emit('signInResponse', {success:false});
     	}
@@ -85,6 +87,7 @@ io.sockets.on('connection', function(socket){
     		socket.emit('signUpResponse', {success:false});
     	} else {
     		addUser(data);
+            advancedUSERDATA.push(data);
     		socket.emit('signUpResponse', {success:true});
     	}
     });
@@ -111,6 +114,49 @@ io.sockets.on('connection', function(socket){
 
     socket.on('storyRequest', function(data) {
         socket.emit('storyRequested', requestedStory(data));
+    });
+
+    // Sends comments on request
+
+    socket.on('showComments', function(data) {
+        var storytitle = data.commentshow
+        for (var i = 0; i <  STORIES.length; i++) {
+            if (STORIES[i].title === storytitle) {
+                var data = {commentlist: STORIES[i].comments, title: storytitle}
+                socket.emit('sentComments', data);
+            }
+        }
+    });
+
+    // adds the comment to the stories object for the correct title
+
+    socket.on('addComment', function(data){
+        //comment, username, title
+
+        // finds the title in the stories object and adds the comment and adds +1 to comment number
+        for(var i = 0; i < STORIES.length; i++) {
+            if (STORIES[i].title === data.title) {
+                STORIES[i].comments.push({username: data.username, comment: data.comment});
+                STORIES[i].commentnumber ++;
+            }
+        }
+    });
+
+    //  Updates Like  of astory to user
+
+    socket.on('userLiked', function(data){
+        for(var i = 0; i < STORIES.length; i++) {
+            if (STORIES[i].title === data.title) {
+                for (var j = 0; j < STORIES[i].length; j++){
+                    if (STORIES[i].likes[j] === data.username) {
+                        socket.emit('likedResult', {success: false});
+                    } else {
+                        STORIES[i].likes.push(data.username);
+                        socket.emit('likedResult', {success: true});
+                    }
+                }                
+            }
+        }
     });
 
     // Updates website with six latest stories at predefined duration
