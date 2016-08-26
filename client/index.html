@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Blog Stories</title>
+		<meta charset='utf-8'></meta>
+		<link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet'>
+		<link href='https://fonts.googleapis.com/css?family=Lato' rel='stylesheet'>
+		<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/themes/smoothness/jquery-ui.css">
+		<link rel='stylesheet' href='normalize.css' />
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel='stylesheet' href='main.css' />
+	</head>
+	<body>
+	<header class='header header-toggle'>
+		<div>
+			<p class='logo'>Blog Stories</p>
+		</div>
+		<p class='container' id='welcome'>Welcome Guest, please <a class='account-log-in'>log in to your account</a> or sign up if you dont have one</p>
+	</header>
+
+	<!-- Start of Nav-->
+
+	<div class="navbar navbar-twitch" role="navigation">
+		<div class="container">
+			<div class="">
+				<ul class="nav navbar-nav">
+					<li class="active top-nav-icon">
+						<a class='nav-icon-color navbar-twitch-toggle' href="#">
+							<span class="small" data-toggle="tooltip" data-placement="right" title="Re-size">  
+								<span class="glyphicon glyphicon-menu-hamburger nav-open"></span>
+							</span>
+						</a>
+					</li>
+					<li>
+						<a class='nav-icon-color nav-shunt second-nav-icon' href="index.html">
+							<span class="small-nav" data-toggle="tooltip" data-placement="right" title="Home"> 
+								<span class="glyphicon glyphicon-home"></span> 
+							</span>
+							<span class="full-nav"> Home </span>
+						</a>
+					</li>
+					<li>
+						<a class='nav-icon-color' href="account.html" id='myaccount-button'>
+							<span class="small-nav" data-toggle="tooltip" data-placement="right" title="My Account"> 
+								<span class="glyphicon glyphicon-user"></span> 
+							</span>
+							<span class="full-nav">My Account</span>
+						</a>
+					</li>
+					<li>
+						<a class='nav-icon-color' href="#" id='lucy-chat-button'>
+							<span class="small-nav" data-toggle="tooltip" data-placement="right" title="Lucy Chat"> 
+								<span class="glyphicon glyphicon-comment"></span> 
+							</span>
+							<span class="full-nav"> Lucy Chat </span>
+						</a>
+					</li>
+				</ul>
+			</div><!--/.nav-collapse -->
+		</div>
+	</div>
+
+	<!-- End of Nav -->
+
+	<div class='container content'>
+		<div class='row'>
+			<div class='col-lg-12'>
+				<header class='subheader'>
+					<h1>Latest Story</h1>
+					<p>Add a new story! <a class='js-add-link' href='#'>Add a story now!</a><a id='story-refresh' href='#'>Refresh Stories!</a></p>
+					<form class='form js-form'>
+					<label class='form-label' for='form-link-input' />
+						<p>Title</p>
+						<input class='form-title' type='title' id='form-story-title' />
+						<textarea class='form-input' type='text' id='form-link-content'>Type or copy your story here</textarea>
+						<button class='form-text' style='width: 100px;' type='button' id='submitStory'>Submit</button>
+					</form>
+				</header>
+			</div>
+		</div>
+
+		<div class='row'>
+			<div class='col-lg-12'>
+				<ol class='story commentforminvisible' id='latest-story-list'>
+					<!-- Server sends top  six moost popular storys here -->
+				</ol>
+			</div>
+		</div>
+	</div>
+
+	<div class='apps hidden'>
+	
+		<!--Sign In -->
+
+
+		<div class='sign-in-wrapper small-font inFrontOf'>
+		<div class='signInMargin' >Sign In</div>
+			<div class=''>
+				<div class='signInMargin'>
+					Username: <input class='form-text' id="signDiv-username" type="text"></input><br>
+	                Password: <input class='form-text' id="signDiv-password" type="password"></input>
+	                <div class='sign-up-extra-view' id='extra-signup'><br>
+	            	Name: <input class='form-text' id="signDiv-name" type="text"></input><br>
+	                Email: <input class='form-text' id="signDiv-email" type="text"></input><br>
+	                Date of Birth: <input class='form-text' id="signDiv-dob" type="date"></input><br>
+	                Photo (optional): <input class='form-text' id="signDiv-photo" type="file"></input><br>
+	            	</div>
+	                <div class='sign-in-button-wrap'>
+	                	<button class='form-text' type='button' id="signDiv-signIn" style='width: 100px;'>Sign In</button>
+	                	<button class='form-text' type='button' id="signDiv-signUp" style='width: 100px;'>Sign Up</button>
+	                </div>
+	            </div>
+			</div>
+		</div>
+		<!-- End of Sign in -->
+
+
+		<!--Chat app -->
+		<div class='chat-wrapper chat-modal small-font'>
+			<div class='chat big-font' >Lucy Chat</div>
+			<div class='chat-window' id="chat-text">
+				<div class='chat-inner-window-sub'>Type here</div>
+			</div>
+			<form class='form-text' id="chat-form">
+				<input id="chat-input" type='text'/>
+			</form>
+		</div>
+	<!-- End of chat app -->
+	</div>
+
+	<script src='jquery-2.2.3.min.js'></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
+	<script src="https://cdn.socket.io/socket.io-1.4.5.js"></script>
+	<script src='website.js'></script>
+	</body>
+</html>
+

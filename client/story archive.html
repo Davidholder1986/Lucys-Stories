@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Blog Stories</title>
+		<meta charset='utf-8'></meta>
+		<link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet'>
+		<link href='https://fonts.googleapis.com/css?family=Lato' rel='stylesheet'>
+		<link rel='stylesheet' href='normalize.css' />
+		<link rel='stylesheet' href='main.css' />
+	</head>
+	<body>
+	<header class='header'>
+		<div class='container'>
+			<p class='logo'>Blog Stories</p>
+		</div>
+		<p class='container' id='welcome'>Welcome Guest, please log in to your account or sign up if you dont have one</p>
+	</header>
+
+	<!--Sign In -->
+	<div class='signIn-wrapper inFrontOf' id="signDiv">
+		<div class='lucy-chat-button small-font'>
+			<div class='chat' >Sign In</div>
+			<div class='chat-modal js-SignIn'>
+				<div class='signInMargin'>
+					Username: <input class='form-text' id="signDiv-username" type="text"></input><br>
+	                Password: <input class='form-text' id="signDiv-password" type="password"></input>
+	                <div class='sign-up-extra-view' id='extra-signup'><br>
+	            	Name: <input class='form-text' id="signDiv-name" type="text"></input><br>
+	                Email: <input class='form-text' id="signDiv-email" type="text"></input><br>
+	                Date of Birth: <input class='form-text' id="signDiv-dob" type="date"></input>
+	            	</div>
+	                <div class='sign-in-button-wrap'>
+	                	<button class='form-text' type='button' id="signDiv-signIn" style='width: 100px;'>Sign In</button>
+	                	<button class='form-text' type='button' id="signDiv-signUp" style='width: 100px;'>Sign Up</button>
+	                </div>
+	            </div>
+			</div>
+		</div>
+	</div>
+	<!--  End of Sign in -->
+	
+	<br>
+	<br>
+
+	<!--Chat app -->
+	<div class='chat-wrapper'>
+		<div class='lucy-chat-button small-font'>
+			<div class='chat' >Lucy Chat</div>
+			<div class='chat-modal js-chat'>
+				<div class='chat-window' id="chat-text">
+					<div class='chat-inner-window'>Type here</div>
+				</div>
+				<form class='form-text' id="chat-form">
+					<input id="chat-input" type='text' />
+				</form>
+			</div>
+		</div>
+	</div>
+<!-- End of chat app -->
+
+	<main class='content'>
+		<div class='container'>
+			<header class='subheader'>
+				<h1>Latest Story</h1>
+				<p>Add a new story! <a class='js-add-link' href='#'>Add a story now!</a><a id='story-refresh' href='#'>Refresh Stories!</a></p>
+				<form class='form js-form'>
+				<label class='form-label' for='form-link-input' />
+					<p>Title</p>
+					<input class='form-title' type='title' id='form-story-title' />
+					<textarea class='form-input' type='text' id='form-link-content'>Type or copy your story here</textarea>
+					<button class='form-text' style='width: 100px;' type='button' id='submitStory'>Submit</button>
+				</form>
+			</header>
+
+		<!-- Author Tabs -->
+			<!-- Daniel -->
+			<div class='modal js-daniel'>
+				<div class='modal-media'>
+				<img src='Photos/Daniel.JPG' alt='Daniel' />
+				<h3 class='modal-media-title'>Daniel Holder</h3>
+			</div>
+			<div class='modal-content'>
+				<h3>AboutMe</h3>
+				<p>I say cool things are nerdy because of my own insecuritys</p>
+				<ol class='story'>
+					<li class='story-item'>
+						<a class='story-link' href='#'>My Stories</a>
+					</li>
+					<li class='story-item'>
+						<a class='story-link' href='#'>Leave a message</a>
+					</li>
+				</ol>
+			</div>
+			</div>
+			<div class='modal-overlay js-modal-overlay'>
+			</div>
+
+			<!-- David -->
+			<div class='modal js-david'>
+				<div class='modal-media'>
+				<img src='Photos/David.jpg' alt='David' />
+				<h3 class='modal-media-title'>David Holder</h3>
+			</div>
+			<div class='modal-content'>
+				<h3>AboutMe</h3>
+				<p>I am an amazing computer programmer</p>
+				<ol class='story'>
+					<li class='story-item'>
+						<a class='story-link' href='#'>My Stories</a>
+					</li>
+					<li class='story-item'>
+						<a class='story-link' href='#'>Leave a message</a>
+					</li>
+				</ol>
+			</div>
+			</div>
+			<div class='modal-overlay js-modal-overlay'>
+			</div>
+
+			<!-- Lucy -->
+			<div class='modal js-lucy'>
+				<div class='modal-media'>
+				<img src='Photos/lucy.jpg' alt='Lucy' />
+				<h3 class='modal-media-title'>Lucy Matkin</h3>
+			</div>
+			<div class='modal-content'>
+				<h3>AboutMe</h3>
+				<p>I enjoy writing stories, especially about scientific topics</p>
+				<ol class='story'>
+					<li class='story-item'>
+						<a class='story-link' href='#'>My Stories</a>
+					</li>
+					<li class='story-item'>
+						<a class='story-link' href='#'>Leave a message</a>
+					</li>
+				</ol>
+			</div>
+			</div>
+			<div class='modal-overlay js-modal-overlay'>
+			</div>
+
+
+			<ol class='story' id='latest-story-list'>
+
+			</ol>
+		</div>
+	</main>
+	<script src='jquery-2.2.3.min.js'></script>
+	<script src="https://cdn.socket.io/socket.io-1.4.5.js"></script>
+	<script src='website.js'></script>
+	</body>
+</html>

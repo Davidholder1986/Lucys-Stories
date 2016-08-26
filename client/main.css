@@ -1,0 +1,475 @@
+/**********************************************************
+*
+*		Blog Stories Stylesheet
+*
+*		Author: David Holder
+*
+*
+***********************************************************/
+
+/**********************************************************
+*
+*		Base
+*
+**********************************************************/
+
+body {
+	color: #212121;
+	font-family: 'Lato', 'sans-serif';
+	font-size: 16px;
+	line-height: 1.5; 
+
+}
+
+body.on {
+padding-left: 240px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+	margin-bottom: 5px;
+	margin-top: 0;
+}
+
+ol, ul{
+	margin: 0;
+	padding: 0;
+	list-style-type: none;
+}
+
+li {
+
+}
+
+p {
+
+}
+
+a {
+	color: #ff4081;
+	transition: 0.2s ease-in-out; 
+}
+
+a:active, a:hover, a:focus {
+	color: #212121;
+}
+
+
+/***********************************************************
+*
+* 	Classes
+*
+***********************************************************/
+
+.header {
+	background-color: #3f51b5;
+	color: #fff;
+	position: relative;
+	padding: 20px 0;
+	text-align: center;
+	margin-bottom: 40px;
+	z-index: 2000;
+}
+
+.header-toggle{
+	margin-left:50px;
+}
+
+.logo {
+	font-size: 34px;
+	text-transform: uppercase;
+	font-weight: bold;
+}
+
+.story-item{
+	border-bottom: 1px solid;
+	margin-bottom: 20px;
+	padding-bottom: 20px;
+}
+
+.story-item:last-child {
+	border-bottom: 0;
+	margin-bottom: 0;
+	padding:bottom: 0;
+}
+
+.story-link{
+	color: #3f51b5;
+	font-size: 20px;
+	margin-bottom: 10px;
+	display: block;
+}
+
+.story-meta {
+	display: inline;
+	margin-right: 15px;
+}
+
+.content {
+	margin-bottom: 40px;
+}
+
+/*****************************************************************
+*		Form
+*****************************************************************/
+.form {
+	height: 0;
+	margin-bottom: 20px;
+	opacity: 0;
+	visibility: hidden;
+}
+
+.form.is-visible {
+	opacity: 1;
+	visibility: visible; 
+	height: auto;
+	transition: opacity 0.2s ease-in-out, visibility 0.2s ease-in-out;
+}
+
+.form-label {
+	display: block;
+	font-weight: bold; 
+	margin-bottom: 5px;
+}
+
+.form-input {
+	border-bottom: 1px solid #b6b6b6;
+	border-radius: 4px;
+	box-sizing: border-box;
+	font-size: 14px;
+	padding: 5px;
+	margin-bottom: 10px;
+	width: 100%; 
+	overflow-y: auto;
+	height: 100px;
+}
+
+.form-title {
+	border-bottom: 1px solid #b6b6b6;
+	border-radius: 4px;
+	box-sizing: border-box;
+	margin-bottom:15px; 
+	padding: 5px;
+	font-size: 18px;
+	width: 100%; 
+}
+
+/****************************************************************
+*		Animation
+*****************************************************************/
+
+.is-liked {
+	animation: flash 2s;
+}
+
+.is-visible {
+	opacity: 1;
+	visibility: visible; 
+	height: auto;
+}
+
+@keyframes flash {
+	from, 50%, to {
+		opacity: 0;
+	} 
+	25%, 75% {
+		opacity: 1;
+	}
+}
+
+/*****************************************************************
+*		Modal
+*****************************************************************/
+
+.modal {
+  background-color: #fff;
+  border-bottom-left-radius: 4px;
+  border-bottom-right-radius: 4px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.45);
+  left: 50%;
+  opacity: 0;
+  position: absolute;
+  top: 40px;
+  transform: translate(-50%, -5%);
+  transition: 0.4s ease-in-out;
+  visibility: hidden;
+  width: 360px;
+  z-index: 2;
+}
+
+.modal.is-visible {
+  opacity: 1;
+  transform: translate(-50%, 0);
+  visibility: visible;
+}
+
+.modal-media {
+  position: relative;
+}
+
+.modal-media-title {
+  color: #fff;
+  bottom: 20px;
+  left: 20px;
+  font-size: 30px;
+  position: absolute;
+}
+
+.modal-content {
+  padding: 20px;
+}
+
+.modal-overlay {
+  background-color: #212121;
+  bottom: 0;
+  height: 100%;
+  left: 0;
+  opacity: 0;
+  position: fixed;
+  right: 0;
+  top: 0;
+  transition: 0.4s ease-in-out;
+  visibility: hidden;
+  width: 100%;
+  z-index: 1;
+}
+
+.modal-overlay.is-visible {
+  opacity: 0.4;
+  visibility: visible;
+}
+
+/***************************************************************************************
+*	Story Modals
+***************************************************************************************/
+
+.story-modal {
+  background-color: #fff;
+  border-bottom-left-radius: 4px;
+  border-bottom-right-radius: 4px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.45);
+  left: 50%;
+  top: 40px;
+	z-index: 100;
+	width: 100%;
+}
+
+
+/***************************************************************************************
+*	Lucy Chat CSS
+***************************************************************************************/
+
+.chat-wrapper {
+	width: 360px;
+	float: right;
+	z-index: 90;
+	position: fixed;
+	bottom: 0;
+	border-radius: 5px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.45);
+  right: 0%;
+  margin:10px;
+  background-color: #3f51b5;
+}
+
+.chat {
+	margin:10px;
+	text-align: center;
+	color: #fff;
+}
+
+.chat-window {
+	position: relative;
+	margin: 10px;
+	height: 200px;
+	overflow-y: auto;
+	z-index: 75;
+}
+
+.chat-inner-window-sub {
+	margin: 0 0 2px 10px;
+	color: #fff;
+}
+
+#chat-input {
+	width: 100%;
+}
+
+.form-text {
+	color: #000;
+	margin: 5px;
+}
+
+.big-font {
+	font-size: 22px;
+}
+
+.small-font {
+	font-size: 18px;
+}
+
+.hidden {
+	display: none;
+}
+
+
+/*********************************************************************************
+*		Sign In CSS
+*********************************************************************************/
+
+.sign-in-wrapper {
+	width: 360px;
+	float: right;
+	z-index: 71;
+	position: fixed;
+	bottom: 0;
+	border-radius: 5px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.45);
+  right: 0%;
+  margin:10px;
+  background-color: #3f51b5;
+  color: #fff;
+}
+
+.signInMargin {
+	margin: 10px;
+}
+
+.inFrontOf {
+	z-index: 100000;
+}
+
+#signDiv-username {
+  width: 90%;
+}
+
+#signDiv-password, #signDiv-name, #signDiv-email, #signDiv-dob {
+  width: 90%;
+}
+
+
+#signDiv-signIn {
+	margin-top: 10px;
+}
+
+#signDiv-signUp {
+	margin-top: 10px;
+}
+
+.sign-in-button-wrap {
+	text-align: center;
+}
+
+.sign-up-extra-view {
+	display: none;
+}
+
+/*	Navbar CSS	*/
+
+@import url(//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css);
+
+.navbar-twitch {
+	position: fixed;
+	top: 0px;
+	left: 0px;
+	width: 50px;
+	height: 100%;
+	border-radius: 0px;
+	border: 0px;
+  z-index: 4;
+  background-color: #3f51b5;
+}
+.navbar-twitch.open {
+	width: 240px;
+}
+.navbar-twitch > .container {
+	padding: 0px;
+	width: 100%;
+}
+.navbar-twitch .navbar-header,
+.navbar-twitch .navbar-brand {
+	float: none;
+	display: block;
+	width: 100%;
+	margin: 0px;
+}
+.navbar-twitch .navbar-brand {
+    height: 50px;   
+}
+.navbar-twitch > .container .navbar-brand {
+	padding: 0px;
+	margin: 0px;
+}
+.navbar-twitch > .container .navbar-brand > .small-nav {
+	display: block;
+}
+.navbar-twitch > .container .navbar-brand > .small-nav > span.logo,	
+.navbar-twitch.open > .container .navbar-brand > .full-nav {
+  display: block;
+	font-weight: bold;
+	padding: 15px 2px 15px 3px;
+	font-size: 18pt;
+}
+.navbar-twitch.open > .container .navbar-brand {
+	width: 100%;
+	padding: 15px 15px 60px;
+	text-align: center;
+}
+.navbar-twitch.navbar-inverse > .container .navbar-brand > .small-nav > span.logo {
+	/* background-color: #3f51b5; */
+}
+.navbar-twitch .navbar-nav > li {
+	float: none;
+}
+.navbar-twitch > .container .full-nav {
+	display: none;
+}
+.navbar-twitch.open > .container .full-nav {
+	display: block;
+}
+.navbar-twitch.open > .container .small-nav {
+	display: none;
+}
+.navbar-twitch .navbar-collapse {
+	padding: 0px;
+}
+.navbar-twitch .navbar-nav {
+	float: none;
+	margin: 0px;
+}
+.navbar-twitch .navbar-nav > li > a {
+	padding: 0px;
+}
+.navbar-twitch .navbar-nav > li > a > span {
+	display: block;
+	font-size: 16pt;
+	padding: 13px 15px 13px 12px;
+}
+.navbar-twitch .tooltip,
+.navbar-twitch .tooltip .tooltip-inner {
+	max-width: auto;
+	white-space:nowrap;
+}
+
+.navbar-twitch ~ .navbar-twitch-toggle > .nav-open {
+	display: inline-block;
+}
+.navbar-twitch ~ .navbar-twitch-toggle > .nav-close {
+	display: none;
+}
+.navbar-twitch.open ~ .navbar-twitch-toggle {
+	left: 245px;
+}
+.navbar-twitch.open ~ .navbar-twitch-toggle > .nav-open {
+	display: none;
+}
+.navbar-twitch.open ~ .navbar-twitch-toggle > .nav-close {
+	display: inline-block;
+}
+
+.nav-icon-color {
+	color: #fff;
+}
+
+.nav-shunt {
+	margin-top: 110px;
+}
