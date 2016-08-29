@@ -113,6 +113,14 @@ a:active, a:hover, a:focus {
 	margin-bottom: 30px;
 }
 
+#storyContent-comment {
+	margin-bottom: 10px;
+}
+
+#storyContent-user {
+	margin-top: 10px;
+}
+
 /*****************************************************************
 *		Form
 *****************************************************************/

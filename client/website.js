@@ -158,8 +158,8 @@ $(document).on("click",".commentlink",function(event) {
 socket.on('sentComments', function(data) {
 	var comments = '';
 	for (var i = 0; i < data.commentlist.length; i++) {
-		var comment = "<p id='storyContent'>User: " + data.commentlist[i].username + "</p>\
-					   <p id='storyContent'>Comment: " + data.commentlist[i].comment + "</p>"
+		var comment = "<p id='storyContent-user'>User: " + data.commentlist[i].username + "</p>\
+					   <p id='storyContent-comment'>Comment: " + data.commentlist[i].comment + "</p>"
 		comments += comment;
 
 	}
@@ -214,7 +214,6 @@ $(document).on("click","#submitComment",function(event) {
 	var storytitle = $('#storyTitle').html();
 	var comment = document.getElementById('form-link-comment')
 	var data = {comment: comment.value, username: getCookie('username'), title: storytitle};
-	console.log(data.comment);
 	socket.emit('addComment', data);
 	$('form').remove();
 	$('#latest-story-list').addClass('commentforminvisible');
