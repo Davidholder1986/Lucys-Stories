@@ -1,6 +1,10 @@
 var express = require('express');
 var app = express();
 var serv = require('http').Server(app);
+
+var REDIS_URL = 'redis://h:pfe7qi1gla37op56bshloclkpbg@ec2-54-247-91-92.eu-west-1.compute.amazonaws.com:21129';
+//var client = require('redis').createClient(process.env.REDIS_URL);
+var client = require('redis').createClient();
  
 app.get('/',function(req, res) {
     res.sendFile(__dirname + '/client/index.html');
@@ -64,6 +68,12 @@ var requestedStory = function(story) {
         }
     }
 };
+
+// redis database
+
+client.on('connect', function() {
+    console.log('connected to database');
+})
 
 var io = require('socket.io')(serv,{});
 io.sockets.on('connection', function(socket){
